@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>南京纪念馆预约系统</title>
+<meta content="yes" name="apple-mobile-web-app-capable"/> 
+<meta content="yes" name="apple-touch-fullscreen"/> 
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta content="telephone=no,email=no" name="format-detection"/>
+<meta name="applicable-device" content="mobile">
+<link rel="stylesheet" href="/h5/dest/css/styles.css">
+<script src="/h5/dest/js/metareset.js"></script>
+</head>
+
+<body class="page-add-visitor">
+    <div class="add-warp">
+        <div class="pb150">
+            <div class="mod-list">
+                <div class="list-item">预约时间<span class="item-date">2019-07-02</span><span class="item-date">12:00-15:00</span></div>
+            </div>
+            <form id="form-box">
+                <input type="hidden" name="play_date" value="2019-07-02" />
+                <input type="hidden" name="time_span" value="2" />
+                <ul class="mod-list" id="add-item-box">
+                </ul>
+            </form>
+            <div class="mod-list">
+                <p class="title">观众信息</p>
+                <div class="add-btns">
+                    <div class="btns">
+                        <a class="btn-add" id="j-add-list" href="javascript:;">+&nbsp;添加参观者<span class="ui-warning">（可添加<em id="count">5</em>人）</span></a>
+                    </div>
+                    <div class="add-tip">
+                        <p>温馨提示：</p>
+                        <p>① 每次可预约3个成人，2个儿童；</p>
+                        <p>② 每个身份证每天只能预约一次。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="visitor-info">
+            <div class="mod-list"> 
+                <p class="title">参观者信息</p>
+                <div class="list-item">
+                    <span class="item-label">姓名</span>
+                    <input type="text" id="name" placeholder="填写姓名" maxlength="6">
+                </div>
+                <div class="list-item">
+                    <span class="item-label">证件类型</span>
+                    <span class="radio-box"> 
+                        <input id="idcard-radio" class="ui-radio" type="radio" name="input_card_type" value="2" checked="checked"> 
+                        <label for="idcard-radio">身份证</label>
+                    </span>
+                    <span class="radio-box">
+                        <input id="passport-radio" class="ui-radio" type="radio" name="input_card_type" value="3"> 
+                        <label for="passport-radio">护照</label>
+                    </span>
+                </div>
+                <div class="list-item">
+                    <span class="item-label">证件号码</span>
+                    <input type="text" id="id-number" placeholder="填写证件号码" maxlength="18">
+                </div>
+                <div class="add-btns">
+                    <div class="btns">
+                        <a class="btn-reset" id="j-reset" href="javascript:;">重置</a>
+                        <a class="btn-add" id="j-add" href="javascript:;">确定添加</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lt-bottom-btn">
+        <a href="javascript:;" id="j-order" class="ui-btn-big">马上预约</a>
+    </div>
+    
+</body>
+<script type="text/html" id="visitot-html">
+<li class="list-item add-item-box">
+    <div class="add-item">
+        <p>{{name}}</p>
+        <p class="idcard">{{idNumberType}}：{{idNumber}}</p>
+		<input type="hidden" name="tourist_name[]" value="{{name}}" />
+		<input type="hidden" name="card_type[]" value="{{idNumberID}}" />
+		<input type="hidden" name="id_card[]" value="{{idNumber}}" />
+    </div>
+    <i class="icon-delete j-delete"></i>
+</li>
+</script>
+<script src="/h5/dest/js/all.js?0615"></script>
+
+<script>
+    $(function(){
+        var card = {
+            id:[]
+        }
+        var app = {
+            init:function(){
+                // $('#name').focus();
+                this.bindEvent();
+            },
+            touchStart: function(){
+                event.preventDefault();
+            },
+            eachId: function(id){
+                var len = card.id.length;
+                if(len > 0){
+                    for(var i = 0; i<len; i++){
+                        if(id == card.id[i]){
+                            utils.swal({
+                                title:'证件号重复'
+                            });
+                            return true
+                        }
+                    }
+                    return false
+                }
+            },
+            delId: function(id){
+                var len = card.id.length;
+                for(var i = 0; i<len; i++){
+                    if(id == card.id[i]){
+                        card.id.splice(i,1);
+                    }
+                }
+            },
+            bindEvent:function(){
+                var _$this = this,
+                    $name = $('#name'),
+                    max = '5',
+                    $type = $("input[name='input_card_type']"),
+                    $count = $('#count'),
+                    $idNumber = $('#id-number');
+                //函数集合
+
+                var _idNumberTypeKey = ['身份证','护照'],
+                    $addList = $('#add-item-box');
+                //重置
+                var _fnReset = function(){
+                    $name.val('');
+                    $idNumber.val('');
+                    $type.eq(0).prop('checked',true);
+                }
+                $('#j-add-list').on('click',function(){
+                    if(Number($count.html()) === 0){
+                        utils.swal({
+                            title:'最多只能添加'+ max +'人'
+                        });
+                        return true;
+                    }
+                    $('.visitor-info').addClass('show');
+                    $('.lt-bottom-btn').addClass('hidden');
+                    // $('#name').focus();
+                    document.addEventListener('touchmove', _$this.touchStart,{passive:false});
+                });
+                // $('.visitor-info').on('click',function(e){
+                //     _fnReset();
+                //     $(this).removeClass('show');
+                // })
+                // $('.visitor-info').on('click','.mod-list',function(e){
+                //     e.stopPropagation();
+                // })
+                //新增参观者
+                $('#j-add').on('click',function(){
+                    var _name = $.trim($name.val()),
+                    _idNumber = $.trim($idNumber.val()),
+                    _idNumberID = $("input[name='input_card_type']:checked").val(),
+                    _idNumberType = _idNumberTypeKey[Number($("input[name='input_card_type']:checked").val()) - 2];
+                    if(_idNumberType === '身份证' && _idNumber && _idNumber.toString().length !== 18){
+                        utils.swal({
+                            title:'身份证格式有误'
+                        });
+                    }else if(!(_idNumber && _name)){
+                        utils.swal({
+                            title:'请填写完整的信息'
+                        });
+                    }else{
+                        var repeat = _$this.eachId(_idNumber);
+                        if(repeat) return ;
+                        $addList.append(template('visitot-html',{name:_name,idNumber:_idNumber,idNumberType:_idNumberType,idNumberID:_idNumberID}));
+                        _fnReset();
+                        var number = Number($count.html());
+                        $count.html( --number);
+                        $('.visitor-info').removeClass('show');
+                        $('.lt-bottom-btn').removeClass('hidden');
+                        // document.body.scrollTop = 0;
+                        document.removeEventListener('touchmove',_$this.touchStart,{passive:false});
+                        card.id.push(_idNumber);
+                    }
+                });
+                //删除参观者
+                $('#add-item-box').on('click','.j-delete',function(){
+                    var _this = $(this);
+                    var _idNumberID = _this.parents('.list-item').find('input[name="id_card[]"]').val();
+                    utils.swal({
+                        type:'confirm',
+                        title:'确定要删除吗?',
+                        confirmText: '确定删除',
+                        cancleText: '再想想',
+                        confirm:function(){
+                            _this.parents('li').remove();
+                            var number = Number($count.html());
+                            $count.html( ++number);
+                            _$this.delId(_idNumberID);
+                        }
+                    });
+                });
+                //重置
+                $('#j-reset').on('click',function(){
+                    _fnReset();
+                });
+                //预约
+                $('#j-order').on('click',function(){
+                    var boxArr = $('#form-box').serializeArray();
+                    if(boxArr.length<=2){
+                        utils.swal({
+                            type:'alert',
+                            icon:'error',
+                            title:'抱歉,预约失败！',
+                            html:'<div class="tip-box"><p class="ui-warning">请填写参观者信息</p></div>'
+                        });
+                    }else{
+                        utils.ajax({
+                            url:'/tourist/submit',
+                            data:$('#form-box').serialize(),
+                            type:'POST',
+                            successFun:function(response){
+                                //预约成功跳转
+                                window.location.href = response.data.back_href;
+                            },
+                            errorFun:function(response){
+                                utils.swal({
+                                    type:'alert',
+                                    icon:'error',
+                                    title:'抱歉,预约失败！',
+                                    html:'<div class="tip-box"><p class="ui-warning">'+response.msg+'</p></div>'
+                                });
+                            }
+                        });
+                    }
+                    
+                });
+            }
+        }
+        app.init();
+        var scrTop = document.body.scrollTop;
+        var newHeight = 0;
+        
+        $('.visitor-info').on('click','.mod-list',function(e){
+            e.stopPropagation();
+            if($(e.target).attr('type') == 'text'){
+                if( newHeight > 0) {
+                    setTimeout(function(){
+                        document.body.scrollTop = newHeight;
+                    },12)
+                }
+            }else{
+                if(newHeight - scrTop > 0){
+                    document.body.scrollTop = 0;
+                }
+            }
+        })
+        $('.visitor-info').on('focus','input[type="text"]',function(e){
+            newHeight = document.body.scrollTop;
+        })
+
+        $('.visitor-info').on('blur','input[type="text"]',function(e){
+            setTimeout(function(){
+                document.body.scrollTop = 0;
+            },10)
+        })
+
+    });
+</script>
+</body>
+</html>

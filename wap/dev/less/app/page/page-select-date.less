@@ -1,0 +1,98 @@
+.page-select-date{
+    .lazyload-box{
+        padding-bottom:48.5%;
+    }
+    .date-box{
+        margin:0 30px 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        .header{
+            padding:20px 0 20px 30px;
+            font-size:30px;
+        }
+        .date-header-list{
+            display:flex;
+            padding:0 10px;
+            line-height:62px;
+            background:#f8f8f8;
+            .date-header-item{
+                flex:1;
+                text-align:center;
+                color:#666;
+            }
+        }
+        .date-list{
+            .fn-clear();
+            padding:0 10px 20px;
+            font-size:0;
+            .date-item{
+                .fn-left();
+                margin:5px 0;
+                padding:10px 0;
+                width:14.28%;
+            }
+        }
+        .date-number{
+            font-size:20px;
+            color:@col-main;
+        }
+        .date-item{
+            padding:10px 0;
+            text-align:center;
+            font-size:30px;
+            border-radius: 10px;
+            &.cur{
+                color:#fff;
+                background:@col-bg;
+                .date-number{
+                    color:#fff;
+                }
+            }
+            .ui-warning{
+                color:#ff5e5e;
+            }
+        }
+        .item-disabled{
+            p{
+                color:#999;
+            }
+        }
+        .time-list{
+            padding:20px 0 20px 30px;
+            border-top:1px solid @col-bor;/* no */
+            text-align: center;
+            .date-item{
+                display:inline-block;
+                width:40%;
+                margin:10px 36px 10px 10px;
+                border:1px solid @col-bor;/* no */
+            }
+            .item-disabled{
+                color:#999;
+                background:#eee;
+            }
+        }
+    }
+    .date{
+        position: relative;
+        margin-top:-120px;
+    }
+    .team{
+        display:inline-block;
+        padding:30px;
+        .team-number{
+            width:250px;
+            margin:0 20px;
+            padding-left:10px;
+            border-radius: 10px;
+            line-height:58px;
+            border:1px solid @col-bor;/* no */
+        }
+        .team-tip{
+            margin-top:20px;
+            text-align:center;
+            color:@col-main;
+            font-size:20px;
+        }
+    }
+}

@@ -1,0 +1,40 @@
+.ui-pagination{
+	padding-top:20px;
+	text-align: right;
+	font-size: 0;
+	a,span{
+		display: inline-block;
+		font-size: 14px;
+		color: #808080;
+		height: 30px;
+		line-height: 30px;
+		min-width: 22px;
+		width: auto;
+		padding: 0 8px;
+		margin: 0 4px;
+		text-align: center;
+	}
+	a{
+		.fn-left();
+		border: 1px solid #cccbc8;
+		border-radius: 1px;
+		background: @col-white;
+		&:hover{
+			border-color: #08c2bf;
+			color: #08c2bf;
+		}
+		&.cur{
+			border-color: #08c2bf;
+			color: #08c2bf;
+		}
+		&.disabled{
+			cursor:not-allowed;
+			background:#f8f8f8;
+			&:hover{
+				color:#808080;
+				background:#f8f8f8;
+				border-color:#cccbc8;
+			}
+		}
+	}
+}

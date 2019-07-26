@@ -1,0 +1,88 @@
+.mod-progress{
+	padding:32px 16px 30px 16px;
+	height:32px;line-height:32px;font-size:0;
+	.progress-box{
+		display:flex;
+	}
+	em{
+		display:inline-block;
+		height:12px;
+		line-height:12px;
+		padding-right:5px;
+		margin-right:5px;
+		color:#ccc;
+		border-right:1px solid #ccc;
+	}
+	span{
+		display:inline-block;
+		width:24%;
+		position:relative;
+		text-align:center;background:#f2f4f5;color: #999;
+		font-size:13px;
+		margin-right:6px;
+		flex:1;
+        &.disabled a{
+            color: #666;
+        } 
+        &:before{
+			content:'';
+			position:absolute;
+			top:0;
+			left:0;
+			z-index:9;
+			border-top:16px solid transparent;
+			border-left:16px solid #fff;
+			border-bottom:16px solid transparent;
+		}
+        &:after{
+			content:'';
+			position:absolute;
+			top:0;
+			right:-16px;
+			z-index:10;
+			border-top:16px solid transparent;
+			border-left:16px solid #f2f4f5;
+			border-bottom:16px solid transparent;
+		}
+	}
+	.cur{
+		&:after{
+			border-left:16px solid @col-main;
+		}
+		color:#fff;
+		background:@col-main;
+	}
+	.cur,.pass{
+		a{
+			color:#fff;
+		}
+		em{
+			border-color:#fff;
+			color:#fff;
+		}
+	}
+	.disabled{
+		&:after{
+			border-left:16px solid #f2f4f5;
+		}
+		background:#f2f4f5;
+	}
+	.pass{
+		&:after{
+			border-left:16px solid #75e0db;
+		}
+		color:#fff;
+		background:#75e0db;
+	}
+	.last{
+		&:after{
+			display:none;
+		}
+	}
+	.first{
+		&:before{
+			display:none;
+		}
+	}
+	
+}

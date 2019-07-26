@@ -1,0 +1,159 @@
+.page-add-visitor{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    // padding-bottom:150px;
+    font-size:30px;
+    .item-date{
+        margin-left:40px;
+    }
+    .add-header{
+        padding:10px 0 0 60px;
+    }
+    .item-label{
+        display:inline-block;
+        width:130px;
+        margin-right:90px;
+    }
+    .radio-box{
+        display: inline-block;
+        height: 100px;
+        color:@col-main;
+        margin-right:95px;
+    }
+    label{
+        line-height:1;
+    }
+    .btns{
+        display:flex;
+        margin:30px 0 50px;
+        padding-left:40px;
+        a{
+            flex:1;
+            display:inline-block;
+            margin-right:40px;
+            border-radius: 40px;
+            line-height:78px;
+            text-align:center;
+            color:@col-main;
+            border:1px solid @col-main;/* no */
+        }
+    }
+    .add-item-box{
+        .flex-lr();
+        align-items:center;
+        .add-item{
+            p{
+                line-height: 1.2;
+            }
+        }
+    }
+    .add-tip{
+        line-height:1.7;
+        padding:0 0 20px 60px;
+        color:@col-red;
+    }
+    .add-btns{
+        padding-bottom:1px;
+    }
+    .ui-radio{
+        position: absolute;
+        display: none; 
+    }
+    .ui-radio + label{
+        position: relative;
+        display: inline-block;
+        height: 100px;
+        line-height: 100px;
+        padding-left: 40px;
+        cursor: pointer;
+        vertical-align: middle; 
+    }
+    .ui-radio + label:hover:before {
+        animation-duration: 0.4s;
+        animation-fill-mode: both;
+        animation-name: hover-color; 
+    }
+    .ui-radio + label:before{
+        position: absolute;
+        top: 50%;
+        left: 0;
+        display: inline-block;
+        transform: translate(0, -50%);
+        width: 30px;
+        height: 30px;
+        content: '';
+        border: 1px solid #999;/* no */
+        box-sizing:border-box;
+    }
+    .ui-radio + label:after {
+        position: absolute;
+        display: none;
+        content: ''; 
+    }
+    
+    .ui-radio:checked + label:before,.ui-checkbox:checked + label:before {
+        animation-name: none; 
+    }
+    .ui-radio:checked + label:after,.ui-checkbox:checked + label:after {
+        display: block; 
+    }
+    .ui-radio + label:before {
+        border-radius:50%;
+    }
+    .ui-radio + label:after {
+        top: 50%;
+        left: 12px;
+        box-sizing: border-box;
+        width: 6px;
+        height: 12px;
+        transform: translate(0, -50%) rotate(45deg);
+        border-width: 2px;
+        border-style: solid;
+        border-color: #fff;
+        border-top: 0;
+        border-left: 0; 
+    }
+    .ui-radio:checked + label:before {
+        border: @col-main;
+        background: @col-main; 
+    }
+    .visitor-info{
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1001;
+        background:rgba(0,0,0,0.7);
+        .title{
+            text-align: center;
+            padding: 22px 0;
+        }
+        .mod-list{
+            position: absolute;
+            bottom: 0;
+            margin: 0;
+            width: 100%;
+            z-index: 1003;
+        }
+    }
+    .show{
+        // top: 0;
+        display: block;
+    }
+    .hidden{
+        z-index: 0;
+    }
+    .add-warp{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;/* 解决ios滑动不流畅问题 */
+        z-index: 10;
+    }
+}

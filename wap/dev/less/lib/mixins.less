@@ -1,0 +1,53 @@
+/*三角*/
+.arrow(@color: #fff; @pointer:up; @size: 8px){
+	width:0;
+    height:0;
+	.pointer(@pointer) when (@pointer = up){
+		border-bottom: @size solid @color;
+		border-right: @size solid transparent;
+		border-left: @size solid transparent;
+	}
+	.pointer(@pointer) when (@pointer = down){
+		border-top: @size solid @color;
+		border-right: @size solid transparent;
+		border-left: @size solid transparent;
+	}
+	.pointer(@pointer) when (@pointer = left){
+		border-top: @size solid transparent;
+		border-bottom: @size solid transparent;
+		border-right: @size solid @color;
+	}
+	.pointer(@pointer) when (@pointer = right){
+		border-top: @size solid transparent;
+		border-bottom: @size solid transparent;
+		border-left: @size solid @color;
+	}
+	.pointer(@pointer);
+}
+/* rem */
+.rem (@property, @value:default, @value2:default, @value3:default, @value4:default) {
+	@diff: 750/10;
+	.mixin (@value, @value2, @value3, @value4) when ( isnumber(@value) ) {
+		@px-fallback: @value / @diff;
+		-: ~`(function () { return ';@{property}: @{px-fallback}rem'; }())`;
+	}
+	.mixin (@value, @value2, @value3, @value4) when (isnumber(@value2)) {
+		@px-fallback: @value / @diff;
+		@px-fallback2: @value2 / @diff;
+		-: ~`(function () { return ';@{property}: @{px-fallback}rem @{px-fallback2}rem'; }())`;
+	}
+	.mixin (@value, @value2, @value3, @value4) when (isnumber(@value3)) {
+		@px-fallback: @value / @diff;
+		@px-fallback2: @value2 / @diff;
+		@px-fallback3: @value3 / @diff;
+		-: ~`(function () { return ';@{property}: @{px-fallback}rem @{px-fallback2}rem @{px-fallback3}rem'; }())`;
+	}
+	.mixin (@value, @value2, @value3, @value4) when (isnumber(@value4)) {
+		@px-fallback: @value / @diff;
+		@px-fallback2: @value2 / @diff;
+		@px-fallback3: @value3 / @diff;
+		@px-fallback4: @value4 / @diff;
+		-: ~`(function () { return ';@{property}: @{px-fallback}rem @{px-fallback2}rem @{px-fallback3}rem @{px-fallback4}rem'; }())`;
+	}
+	.mixin(@value, @value2, @value3, @value4);
+}

@@ -1,0 +1,27 @@
+{
+  "name": "lyxy",
+  "version": "0.2.0",
+  "scripts": {
+    "gulp": "gulp",
+    "build": "npm run gulp"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.2.4",
+    "browser-sync": "^2.23.5",
+    "gulp": "^3.9.1",
+    "gulp-cache": "*",
+    "gulp-clean": "*",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-less": "^3.3.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-plumber": "^1.0.1",
+    "gulp-postcss": "^7.0.1",
+    "gulp-requirejs": "*",
+    "gulp-sourcemaps": "*",
+    "gulp-uglify": "^2.0.0",
+    "gulp.spritesmith": "^6.9.0",
+    "path": "^0.12.7"
+  }
+}

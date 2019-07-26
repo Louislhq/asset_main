@@ -1,0 +1,72 @@
+.page-register{
+    .register-box{
+        margin-top:20px;
+        padding-left:60px;
+        background:#fff;
+    }
+    .register-item{
+        display:flex;
+        flex-wrap:wrap;
+        padding:26px 0;
+        border-bottom:1px solid @col-bor;/* no */
+        &:last-child{
+            border:none;
+        }
+        .register-name{
+            min-width:150px;
+            margin-right:20px;
+        }
+        .register-info{
+            width:46%;
+        }
+        .code{
+            width:160px;
+            text-align:center;
+            color:@col-main;
+        }
+        .disabled{
+            color:#ccc;
+        }
+    }
+    .submit{
+        margin-top:60px;
+    }
+    .number-box{
+        padding:30px 30px 0 30px;
+        .number-item{
+            margin-bottom:50px;
+            h2{
+                margin-bottom:20px;;
+                padding-left:30px;
+                font-size:30px;
+            }
+        }
+        .file-box{
+            position: relative;
+            .flex-center();
+            margin-bottom:30px;;
+            justify-content:center;
+            height:266px;
+            background:#fff;
+            border:1px solid #bd9161;/* no */
+            border-radius: 10px;
+            color:@col-main;
+            img{
+                position: absolute;
+                left:0;
+                top:0;
+                width:100%;
+                height:100%;
+                border-radius: 10px;
+            }
+        }
+        .j-file{
+            position: absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            opacity:0;
+        }
+    }
+}

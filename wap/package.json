@@ -1,0 +1,25 @@
+{
+    "name": "heyuan",
+    "version": "0.1.0",
+    "scripts": {
+        "gulp": "gulp",
+        "build": "npm run gulp"
+    },
+    "devDependencies": {
+        "autoprefixer": "*",
+        "browser-sync": "*",
+        "gulp": "^3.9.1",
+        "gulp-cache": "*",
+        "gulp-clean": "*",
+        "gulp-concat": "*",
+        "gulp-imagemin": "*",
+        "gulp-jshint": "*",
+        "gulp-less": "^3.3.0",
+        "gulp-minify-css": "*",
+        "gulp-plumber": "^1.0.1",
+        "gulp-postcss": "*",
+        "gulp-uglify": "*",
+        "gulp.spritesmith": "*",
+        "postcss-px2rem": "*"
+    }
+}

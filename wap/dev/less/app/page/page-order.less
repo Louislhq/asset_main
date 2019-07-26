@@ -1,0 +1,80 @@
+.page-order{
+    .order-list-item{
+        margin:30px;
+        .mod-list{
+            border-radius: 10px;
+        }
+        .list-item{
+            padding-left:0;
+            margin:0 30px;
+            border-bottom:1px dotted @col-bor;/* no */
+        }
+    }
+    .status-error{
+        color:@col-red;
+    }
+    .status-success{
+        color:@col-main;
+    }
+    .status-cancle{
+        color:@col-cancle;
+    }
+    .order-link{
+        display:block;
+        padding:2px 60px 10px 0;
+        line-height:62px;
+        color:@col-main;
+        text-align:right;
+        border-top:1px solid @col-bor;/* no */
+    }
+    .overdue{
+        color:@col-cancle; 
+    }
+    .order-detail{
+        .info{
+            align-items:center;
+        }
+        .info-item{
+            position: relative;
+        }
+        .j-refresh{
+            position: absolute;
+            top:10px;
+            right:0;
+            padding:4px 30px;
+            border-radius:30px;
+        }
+        .btns{
+            position: relative;
+            padding:0 40px 30px;
+            text-align:center;
+            .fn-clear();
+            .j-add{
+                .fn-left();
+                padding:15px 60px;
+                border-radius:40px;
+            }
+            .j-lookcode{
+                i{
+                    margin-bottom:4px;
+                }
+                .fn-right();
+                margin-top:-60px;
+                color:@col-main;
+                font-size:26px;
+                text-align:center;
+            }
+        }
+    }
+    .code-mask{
+        .flex-center();
+        justify-content:center;
+        img{
+            width:300px;
+            height:300px;
+        }
+    }
+    .txt-center{
+        text-align:center;
+    }
+}
