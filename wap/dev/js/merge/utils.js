@@ -11,86 +11,52 @@ var utils = {
 	},
     //弹窗
     swal:function(opts){
-		var _this = this,
+		var _this = this;
 			_time = _this.underfinedSetter(opts.timer,3000),
-			_text = _this.underfinedSetter(opts.title,''),
 			_type = _this.underfinedSetter(opts.type,'toast');
 		var swalFun = function(type,callback){
 			var _$layer = $('#'+ type +'-box');
-			//有显示不弹窗
 			if(!_$layer.is(':visible')){
 				callback(_$layer,opts);
 			}
 		};
-		switch(_type){
-			case 'toast':
-				//弱弹窗
-				swalFun(_type,function($layer,opts){
-					if($('body').find($layer).length > 0){
-						$layer.show().find('.toast-box').html(_text);
-					}else{
-						$('body').append('<div class="lt-layer" id="'+ _type +'-box"><p class="toast-box">'+ _text +'</p></div>');
-					}
-					$layer = $('#'+ _type +'-box');
-					$layer.addClass('lt-toast-show');
-					setTimeout(function(){
-						$layer.hide();
-					},_time);
-				});
-				break;
-			case 'confirm':
-				swalFun(_type,function($layer,opts){
-					var _html = _this.underfinedSetter(opts.html,''),
-						_cancleText = _this.underfinedSetter(opts.cancleText,'再想想'),
-						_confirmText = _this.underfinedSetter(opts.confirmText,'确定取消');
-					_this._confirmFun = _this.underfinedSetter(opts.confirm);
-					if($('body').find($layer).length > 0){
-						$layer.show().find('.confirm-text').html(_text);
-						$layer.find('layer-content').html(_html);
-					}else{
-						$('body').append('<div class="ui-mask" id="'+ _type +'-box"><div class="lt-layer"><div class="confirm-box"><div class="layer-header"><i class="icon-warning"></i></div><p class="confirm-text">'+ _text +'</p><div class="layer-content">'+ _html +'</div><div class="confirm-btns"><a class="btn-cancle" href="javascript:;">' + _cancleText + '</a><a class="btn-confirm" href="javascript:;">'+ _confirmText +'</a></div></div></div></div>');
-						$layer = $('#'+ _type +'-box');
-						//确认和取消按钮
-						$('.lt-layer').on('click','.btn-cancle',function(){
-							$layer.hide();
-						});
-						$('.lt-layer').on('click','.btn-confirm',function(){
-							$layer.hide();
-							if(_this.isFunction(_this._confirmFun)){
-								_this._confirmFun();
-							}
-						});
-					}
-					$layer = $('#'+ _type +'-box');
-					$layer.find('.lt-layer').addClass('lt-layer-show');
+		if(_type === 'toast'){
+			swalFun(_type,function($layer,opts){
+				var _text = _this.underfinedSetter(opts.title);
+				if($('body').find($layer).length > 0){
+					$layer.show().find('p').html(_text);
+				}else{
+					$('body').append('<div class="lt-layer" id="'+ _type +'-box"><p class="toast-box">'+ _text +'</p></div>');
+				}
+				$layer = $('#'+ _type +'-box');
+				$layer.addClass('lt-toast-show');
+				setTimeout(function(){
+					$layer.hide();
+				},_time);
+			});
+		}else if(_type === 'confirm'){
+			swalFun(_type,function($layer,opts){
+				var _text = _this.underfinedSetter(opts.title);
+				var _confirmFun = _this.underfinedSetter(opts.confirm);
+				if($('body').find($layer).length > 0){
+					$layer.show().find('p').html(_text);
+				}else{
+					$('body').append('<div class="lt-layer" id="'+ _type +'-box"><div class="confirm-box"><p class="confirm-text">'+ _text +'</p><div class="confirm-btns"><a class="btn-cancle" href="javascript:;">取消</a><a class="btn-confirm" href="javascript:;">确定</a></div></div></div>');
+				}
+				$layer = $('#'+ _type +'-box');
+				$layer.addClass('lt-layer-show');
 				
+				//确认和取消按钮
+				$('.lt-layer').on('click','.btn-cancle',function(){
+					$layer.hide();
 				});
-				break;
-			case 'alert':
-				//强弹窗
-				swalFun(_type,function($layer,opts){
-					var _icon = _this.underfinedSetter(opts.icon,'success'),
-						_html = _this.underfinedSetter(opts.html,'');
-						_this._alertFun = _this.underfinedSetter(opts.confirm);
-						if($('body').find($layer).length > 0){
-							$layer.show().find('.confirm-text').html(_text);
-							$layer.find('.layer-content').html(_html);
-							$layer.find('.layer-i').attr('class','.layer-i icon-'+_icon);
-						}else{
-							$('body').append('<div class="ui-mask" id="'+ _type +'-box"><div class="lt-layer"><div class="confirm-box"><div class="layer-header"><i class="layer-i icon-'+ _icon +'"></i></div><p class="confirm-text">'+ _text +'</p><div class="layer-content">'+ _html +'</div><div class="confirm-btns"><a class="btn-ok" href="javascript:;">确定</a></div></div></div></div>');
-							//确认和取消按钮
-							$layer = $('#'+ _type +'-box');
-							$('.lt-layer').on('click','.btn-ok',function(){
-								$layer.hide();
-								if(_this.isFunction(_this._alertFun)){
-									_this._alertFun();
-								}
-							});
-						}
-						$layer = $('#'+ _type +'-box');
-						$layer.find('.lt-layer').addClass('lt-layer-show');
-					});
-				break;
+				$('.lt-layer').on('click','.btn-confirm',function(){
+					$layer.hide();
+					if(_this.isFunction(_confirmFun)){
+						_confirmFun();
+					}
+				});
+			});
 		}
     },
     //ajax的封装
@@ -110,14 +76,13 @@ var utils = {
 					if(opts.successFun instanceof Function){
 						opts.successFun(data);
 					}
+				}else if(data.code == -105){
+					//没有登录
+					window.location.href = '/h5/user/login';
 				}else{
-					if(opts.errorFun instanceof Function){
-						opts.errorFun(data);
-					}else{
-						_this.swal({
-							title:data.msg
-						});
-					}
+					_this.swal({
+						title:data.msg
+					});
 				}
 			},
 			error:function(){
