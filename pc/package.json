@@ -8,7 +8,7 @@
   "devDependencies": {
     "autoprefixer": "^7.2.4",
     "browser-sync": "^2.23.5",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-cache": "*",
     "gulp-clean": "*",
     "gulp-clean-css": "^3.9.0",
